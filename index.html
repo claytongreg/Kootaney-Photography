@@ -918,7 +918,7 @@
           </div>
         </div>
 
-        <form class="form" onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Sent — talk soon ✦';">
+        <form class="form" id="contact-form">
           <div class="field">
             <label for="name">Your name</label>
             <input id="name" type="text" placeholder="First &amp; last" required />
@@ -946,7 +946,9 @@
             <label for="msg">Tell me a little about your people</label>
             <textarea id="msg" rows="3" placeholder="A few sentences is plenty."></textarea>
           </div>
-          <button type="submit">Send Inquiry</button>
+          <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light"></div>
+          <button type="submit" id="submit-btn">Send Inquiry</button>
+          <p id="form-status" style="margin-top:12px;font-size:14px;display:none;"></p>
         </form>
       </div>
     </div>
@@ -991,6 +993,61 @@
   document.getElementById('lightbox-close').addEventListener('click', () => lb.classList.remove('open'));
   lb.addEventListener('click', (e) => { if (e.target === lb) lb.classList.remove('open'); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lb.classList.remove('open'); });
+</script>
+
+<!-- Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const status = document.getElementById('form-status');
+    const tsResponse = document.querySelector('[name="cf-turnstile-response"]');
+
+    if (!tsResponse || !tsResponse.value) {
+      status.style.display = 'block';
+      status.style.color = 'var(--accent)';
+      status.textContent = 'Please complete the verification.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.style.display = 'none';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          kind: document.getElementById('kind').value,
+          when: document.getElementById('when').value,
+          message: document.getElementById('msg').value,
+          turnstileToken: tsResponse.value,
+        }),
+      });
+
+      if (res.ok) {
+        btn.textContent = 'Sent — talk soon ✦';
+        status.style.display = 'block';
+        status.style.color = 'var(--accent-2)';
+        status.textContent = "Your inquiry has been sent. I'll be in touch soon.";
+        this.reset();
+        if (window.turnstile) turnstile.reset();
+      } else {
+        throw new Error('Send failed');
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Send Inquiry';
+      status.style.display = 'block';
+      status.style.color = 'var(--accent)';
+      status.textContent = 'Something went wrong. Please try again or email directly.';
+      if (window.turnstile) turnstile.reset();
+    }
+  });
 </script>
 
 <!-- React + Babel for Tweaks panel -->
