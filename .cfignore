@@ -1,3 +1,4 @@
 *.zip
-Images/
-.git/
+Images
+.git
+node_modules
