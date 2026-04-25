@@ -1,4 +1,4 @@
-// Tweaks panel for Kootaney Photography
+// Tweaks panel for Kootenay Photography
 const { useEffect } = React;
 
 function TweaksApp() {

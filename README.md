@@ -1,4 +1,4 @@
-# Kootaney Photography
+# Kootenay Photography
 
 A single-page editorial site for Loumicha Lapointe.
 
