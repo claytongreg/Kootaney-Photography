@@ -555,11 +555,61 @@
     font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
   }
 
+  /* ── Instagram feed ────────────────────────────────── */
+  .instagram {
+    padding: 120px 0;
+    background: var(--bg-alt);
+  }
+  .instagram-handle {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 12px;
+    transition: color .2s;
+  }
+  .instagram-handle:hover { color: var(--ink); }
+  .instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin: 48px 0;
+  }
+  .instagram-grid a {
+    aspect-ratio: 1;
+    overflow: hidden;
+    display: block;
+  }
+  .instagram-grid img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(0.95);
+    transition: filter .4s, transform .6s;
+  }
+  .instagram-grid a:hover img {
+    filter: saturate(1.05); transform: scale(1.06);
+  }
+  .instagram-cta {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 16px 32px;
+    text-decoration: none;
+    transition: all .25s;
+  }
+  .instagram-cta:hover { background: var(--ink); color: var(--bg); }
+
   /* ── Responsive ───────────────────────────────────────── */
   @media (max-width: 960px) {
     .hero-grid, .about-grid, .story-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
     .test-grid { grid-template-columns: 1fr; }
     .gallery { column-count: 2; }
+    .instagram-grid { grid-template-columns: repeat(3, 1fr); }
     .nav-inner { grid-template-columns: 1fr auto; }
     .nav-left, .nav-right { display: none; }
     .nav-right.compact { display: flex; }
@@ -567,6 +617,7 @@
   }
   @media (max-width: 560px) {
     .gallery { column-count: 1; }
+    .instagram-grid { grid-template-columns: repeat(2, 1fr); }
     .wrap, .narrow { padding: 0 22px; }
     .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
   }
@@ -885,6 +936,28 @@
     </div>
   </section>
 
+  <!-- INSTAGRAM -->
+  <section class="instagram" id="instagram">
+    <div class="section-head" style="padding-top: 0;">
+      <span class="eyebrow">Follow the journey</span>
+      <h2 class="display">On <em style="color:var(--accent)">Instagram</em>.</h2>
+      <a href="https://www.instagram.com/wildwolfwomanphotography/" target="_blank" rel="noopener" class="instagram-handle">@wildwolfwomanphotography</a>
+    </div>
+    <div class="wrap">
+      <div class="instagram-grid">
+        <a href="https://www.instagram.com/wildwolfwomanphotography/" target="_blank" rel="noopener"><img src="photos/DSC_1437.jpg" alt="Recent work on Instagram" /></a>
+        <a href="https://www.instagram.com/wildwolfwomanphotography/" target="_blank" rel="noopener"><img src="photos/DSC_3250.jpg" alt="Recent work on Instagram" /></a>
+        <a href="https://www.instagram.com/wildwolfwomanphotography/" target="_blank" rel="noopener"><img src="photos/DSC_5511.jpg" alt="Recent work on Instagram" /></a>
+        <a href="https://www.instagram.com/wildwolfwomanphotography/" target="_blank" rel="noopener"><img src="photos/DSC_2934.jpg" alt="Recent work on Instagram" /></a>
+        <a href="https://www.instagram.com/wildwolfwomanphotography/" target="_blank" rel="noopener"><img src="photos/DSC_7029.jpg" alt="Recent work on Instagram" /></a>
+        <a href="https://www.instagram.com/wildwolfwomanphotography/" target="_blank" rel="noopener"><img src="photos/DSC_4365.jpg" alt="Recent work on Instagram" /></a>
+      </div>
+      <div style="text-align:center;">
+        <a href="https://www.instagram.com/wildwolfwomanphotography/" target="_blank" rel="noopener" class="instagram-cta">Follow on Instagram &rarr;</a>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="wrap">
@@ -905,7 +978,7 @@
             </div>
             <div class="row">
               <span class="lab">Instagram</span>
-              <span class="val">@kootaney.photo</span>
+              <a href="https://www.instagram.com/wildwolfwomanphotography/" target="_blank" rel="noopener" class="val" style="text-decoration:none">@wildwolfwomanphotography</a>
             </div>
             <div class="row">
               <span class="lab">Based</span>
