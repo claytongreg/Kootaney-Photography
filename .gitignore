@@ -1,3 +1,4 @@
 *.zip
 Images/
 _deploy/
+.wrangler/
