@@ -857,6 +857,23 @@
   }
   .instagram-cta:hover { background: var(--ink); color: var(--bg); }
 
+  /* ── Floating contact CTA (mobile) ────────────────────── */
+  .contact-fab {
+    display: none;
+    position: fixed; bottom: 24px; right: 20px; z-index: 90;
+    background: var(--ink); color: var(--bg);
+    font-family: var(--font-body); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+    padding: 14px 22px;
+    border: 1px solid color-mix(in srgb, var(--bg) 18%, transparent);
+    text-decoration: none;
+    box-shadow: 0 8px 32px -8px rgba(0,0,0,0.35);
+    transition: opacity .3s, transform .3s;
+  }
+  .contact-fab.hidden { opacity: 0; pointer-events: none; transform: translateY(12px); }
+  @media (max-width: 960px) {
+    .contact-fab { display: block; }
+  }
+
   /* ── Responsive ───────────────────────────────────────── */
   @media (max-width: 960px) {
     .hero-grid, .about-grid, .story-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -1513,6 +1530,23 @@
       if (window.turnstile) turnstile.reset();
     }
   });
+</script>
+
+<a class="contact-fab" href="#contact">Get in Touch ↓</a>
+<script>
+  (() => {
+    const fab = document.querySelector('.contact-fab');
+    const target = document.getElementById('contact');
+    if (!fab || !target) return;
+    const io = new IntersectionObserver(([e]) => {
+      fab.classList.toggle('hidden', e.isIntersecting);
+    }, { threshold: 0.05 });
+    io.observe(target);
+    fab.addEventListener('click', (e) => {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    });
+  })();
 </script>
 
 <!-- React + Babel for Tweaks panel -->
